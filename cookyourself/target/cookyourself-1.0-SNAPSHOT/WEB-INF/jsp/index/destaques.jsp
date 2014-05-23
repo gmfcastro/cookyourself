@@ -30,7 +30,7 @@
         }
         
         function logout(){
-            $.post("http://localhost:8080/cookyourself/logout",function(data,status){
+            $.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/logout",function(data,status){
                 location.reload();
             }); 
         }
@@ -39,7 +39,7 @@
             var text = $("#"+id).text();
             var res = text.split(" ");
             var likes = parseInt(res[0]);
-            var url = "http://localhost:8080/cookyourself/like/recipe/"+id;
+            var url = "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/like/recipe/"+id;
             $.post(url,function(data,status){
                 likes ++;
                 $("#"+id).text(likes+" | Gostei");
@@ -49,7 +49,7 @@
         window.fbAsyncInit = function() {
         FB.init({
           appId      : '638862416204874', // App ID
-          channelUrl : 'http://localhost:8080/cookyourself',
+          channelUrl : 'http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself',
           status     : true, // check login status
           cookie     : true, // enable cookies to allow the server to access the session
           xfbml      : true  // parse XFBML
@@ -70,7 +70,7 @@
                if (response.authResponse) {
                         FB.api('/me', function(response) {
                             userJson = {'user.name':response.name, 'user.password':response.id, 'user.email':response.email};
-                            $.post("http://localhost:8080/cookyourself/doFBLogin",userJson,function(data,status){
+                            $.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin",userJson,function(data,status){
                                 location.reload();
                             }); 
                          });
@@ -83,7 +83,7 @@
                if (response.status === 'connected') {
                         FB.api('/me', function(response) {
                             userJson = {'user.name':response.name, 'user.password':response.id, 'user.email':response.email};
-                            $.post("http://localhost:8080/cookyourself/doFBLogin",userJson,function(data,status){
+                            $.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin",userJson,function(data,status){
                                 location.reload();
                             }); 
                          });               
