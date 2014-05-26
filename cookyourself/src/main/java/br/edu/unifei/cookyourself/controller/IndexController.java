@@ -98,7 +98,11 @@ public class IndexController {
     public void surpreenda(){
         if(userSession.isLogged()){
             List<String> ingredientsToSearch = searchRecordsDAO.findMostSearchRecs(userSession.getUser());
-            result.redirectTo(IndexController.class).search(ingredientsToSearch);
+            if(ingredientsToSearch == null){
+                result.redirectTo(IndexController.class).destaques();
+            }else{
+                result.redirectTo(IndexController.class).search(ingredientsToSearch);
+            }
         }else{
             result.include("error", "Você deve fazer o login primeiro").redirectTo(IndexController.class).index();
         }
@@ -106,7 +110,7 @@ public class IndexController {
     
     @Path("/search")
     public void search(List<String> ingredients){
-        if(!ingredients.isEmpty()){
+        if(ingredients != null){
             
             if(userSession.isLogged()){
                 for(String ing: ingredients){
