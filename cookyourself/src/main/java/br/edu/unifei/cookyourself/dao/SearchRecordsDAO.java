@@ -34,14 +34,14 @@ public class SearchRecordsDAO extends GenericDAO<SearchRecords>{
         for(SearchRecords sr: (List<SearchRecords>)q.list()){
             ingredients.add(sr.getIngredient());
         }
-        
+        session.close();
         return ingredients;
     }
     
     public SearchRecords findSearchsByIngredients(User user, String ingredient){
         Query q = session.createQuery("from SearchRecords as sr where sr.user = :user and sr.ingredient like '%"+ingredient+"%'");
         q.setParameter("user", user);
-        
+         session.close();
         return (SearchRecords)q.uniqueResult();
         
     }
