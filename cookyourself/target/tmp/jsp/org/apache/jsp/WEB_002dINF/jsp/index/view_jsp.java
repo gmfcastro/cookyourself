@@ -86,7 +86,7 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        }\n");
       out.write("        \n");
       out.write("        function logout(){\n");
-      out.write("            $.post(\"http://localhost:8080/cookyourself/logout\",function(data,status){\n");
+      out.write("            $.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/logout\",function(data,status){\n");
       out.write("                location.reload();\n");
       out.write("            }); \n");
       out.write("        }\n");
@@ -94,7 +94,7 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        window.fbAsyncInit = function() {\n");
       out.write("        FB.init({\n");
       out.write("          appId      : '638862416204874', // App ID\n");
-      out.write("          channelUrl : 'http://localhost:8080/cookyourself',\n");
+      out.write("          channelUrl : 'http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself',\n");
       out.write("          status     : true, // check login status\n");
       out.write("          cookie     : true, // enable cookies to allow the server to access the session\n");
       out.write("          xfbml      : true  // parse XFBML\n");
@@ -115,7 +115,7 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("               if (response.authResponse) {\n");
       out.write("                        FB.api('/me', function(response) {\n");
       out.write("                            userJson = {'user.name':response.name, 'user.password':response.id, 'user.email':response.email};\n");
-      out.write("                            $.post(\"http://localhost:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
+      out.write("                            $.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
       out.write("                                location.reload();\n");
       out.write("                            }); \n");
       out.write("                         });\n");
@@ -128,7 +128,7 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("               if (response.status === 'connected') {\n");
       out.write("                        FB.api('/me', function(response) {\n");
       out.write("                            userJson = {'user.name':response.name, 'user.password':response.id, 'user.email':response.email};\n");
-      out.write("                            $.post(\"http://localhost:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
+      out.write("                            $.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
       out.write("                                location.reload();\n");
       out.write("                            }); \n");
       out.write("                         });               \n");
