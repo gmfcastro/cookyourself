@@ -28,7 +28,7 @@ public class RecipeDAO extends GenericDAO<Recipe>{
         
         Query q = session.createQuery("from Recipe as r order by r.likes desc");
         q.setMaxResults(50);
-        session.close();
+        
         return q.list();
         
     }
@@ -41,18 +41,15 @@ public class RecipeDAO extends GenericDAO<Recipe>{
                 recipes.add(r);
             }
         }
-        session.close();
         return recipes;
     }
     
     public void deleteAllAnaMaria(){
        Query q = session.createQuery("Delete from Recipe r where r.author = 'Ana Maria Braga'");
-       session.close();
     }
     
     public void deleteAll(){
         Query q = session.createQuery("Delete from Recipe");
-        session.close();
     }
     
 }

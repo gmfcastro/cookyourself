@@ -29,7 +29,7 @@ public class UserDAO extends GenericDAO<User>{
         q.setParameter("password", password);
         
         User u = (User) q.uniqueResult();
-        session.close();
+        
         return u;
         
     }
