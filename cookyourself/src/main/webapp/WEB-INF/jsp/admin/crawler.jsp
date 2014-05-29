@@ -125,7 +125,8 @@
                 
                 $("#anamaria").click(function (){
                     
-                    $.post( "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/admin/execute/crawler", function( data ) {
+                    //$.post( "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/admin/execute/crawler", function( data ) {
+                    $.post( "http://localhost:8080/cookyourself/admin/execute/crawler", function( data ) {
                         $( ".result" ).html( data );
                     });
                     

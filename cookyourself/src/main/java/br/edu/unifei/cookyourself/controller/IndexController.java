@@ -11,24 +11,24 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
+import br.edu.unifei.cookyourself.dao.CommentDAO;
 import br.edu.unifei.cookyourself.dao.QualificationDAO;
 import br.edu.unifei.cookyourself.dao.RecipeDAO;
 import br.edu.unifei.cookyourself.dao.SearchRecordsDAO;
 import br.edu.unifei.cookyourself.login.Public;
 import br.edu.unifei.cookyourself.login.UserSession;
+import br.edu.unifei.cookyourself.model.Comment;
 import br.edu.unifei.cookyourself.model.Qualification;
 import br.edu.unifei.cookyourself.model.Recipe;
 import br.edu.unifei.cookyourself.model.SearchRecords;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  *
@@ -43,13 +43,15 @@ public class IndexController {
     private UserSession userSession;
     private QualificationDAO qualificationDAO;
     private SearchRecordsDAO searchRecordsDAO;
+    private CommentDAO commentDAO;
     
-    public IndexController(Result result, RecipeDAO recipeDAO, UserSession userSession, QualificationDAO qualificationDAO, SearchRecordsDAO searchRecordsDAO){
+    public IndexController(Result result, RecipeDAO recipeDAO, UserSession userSession, QualificationDAO qualificationDAO, SearchRecordsDAO searchRecordsDAO, CommentDAO commentDAO){
         this.result = result;
         this.recipeDAO = recipeDAO;
         this.userSession = userSession;
         this.qualificationDAO = qualificationDAO;
         this.searchRecordsDAO = searchRecordsDAO;
+        this.commentDAO = commentDAO;
     }
     
     @Path("/")
@@ -58,8 +60,16 @@ public class IndexController {
     }
     
     @Path("/result")
-    public void searchResult(){
+    public void searchResult(List<String> ingredients, Double price, String duration, int yield){
         result.include("session",userSession.getUser());
+        result.include("ingredients",ingredients);
+        result.include("curtis",qualificationDAO.findByUser(userSession.getUser()));
+        if(price == null){
+            price = 200d;
+        }
+        result.include("price",price);
+        result.include("duration",duration);
+        result.include("yield",yield);
     }
     
     @Path("/destaques")
@@ -74,7 +84,20 @@ public class IndexController {
     public void view(Long id){
         Recipe recipe = recipeDAO.findById(id);
         result.include("recipe",recipe);
+        result.include("comments",commentDAO.findByRecipe(recipe));
         result.include("session",userSession.getUser());
+    }
+    
+    @Post("/recipe/comment")
+    public void comment(Long recipeId, Comment comment){
+        Recipe recipe = recipeDAO.findById(recipeId);
+        
+        comment.setUser(userSession.getUser());
+        comment.setRecipe(recipe);
+        
+        commentDAO.saveOrUpdate(comment);
+        
+        result.redirectTo(IndexController.class).view(recipeId);
     }
     
     @Post("/like/recipe/{id}")
@@ -91,7 +114,20 @@ public class IndexController {
             qualificationDAO.saveOrUpdate(like);
         }
         result.use(Results.status()).ok();
-        
+    }
+    
+    @Post("/unlike/recipe/{id}")
+    public void unlike(Long id){
+        Recipe recipe = recipeDAO.findById(id);
+        int likes = recipe.getLikes();
+        likes --;
+        recipe.setLikes(likes);
+        recipeDAO.saveOrUpdate(recipe);
+        if(userSession.isLogged()){
+            Qualification like = qualificationDAO.findByUserAndRecipe(userSession.getUser(), recipe);
+            qualificationDAO.delete(like);
+        }
+        result.use(Results.status()).ok();
     }
     
     @Post("/surpreenda")
@@ -101,15 +137,91 @@ public class IndexController {
             if(ingredientsToSearch == null){
                 result.redirectTo(IndexController.class).destaques();
             }else{
-                result.redirectTo(IndexController.class).search(ingredientsToSearch);
+                result.redirectTo(IndexController.class).search(ingredientsToSearch, 0d, null, 0);
             }
         }else{
             result.include("error", "Você deve fazer o login primeiro").redirectTo(IndexController.class).index();
         }
     }
     
+    @Post("/recipe/update/yield")
+    public void updateYield(Recipe recipe){
+        
+        Recipe newRecipe = recipeDAO.findById(recipe.getId());
+        
+        int newYield;
+        
+        if(newRecipe.getYield() != 0){
+        
+            newYield = (recipe.getYield() + newRecipe.getYield())/2;
+        }else{
+            newYield = recipe.getYield();
+        }
+        
+        newRecipe.setYield(newYield);
+        
+        recipeDAO.saveOrUpdate(newRecipe);
+        
+        result.redirectTo(IndexController.class).view(recipe.getId());
+    }
+    
+    @Post("/recipe/update/duration")
+    public void updateDuration(Recipe recipe){
+        
+        Recipe newRecipe = recipeDAO.findById(recipe.getId());
+        newRecipe.setDuration(recipe.getDuration());
+        
+        recipeDAO.saveOrUpdate(newRecipe);
+        
+        result.redirectTo(IndexController.class).view(recipe.getId());
+        
+    }
+    
+    @Post("/recipe/update/price")
+    public void updatePrice(Recipe recipe){
+        
+        Recipe newRecipe = recipeDAO.findById(recipe.getId());
+        
+        Double newPrice;
+        
+        if(newRecipe.getPrice() != null){
+            newPrice = (recipe.getPrice() + newRecipe.getPrice())/2;
+        }else{
+            newPrice = recipe.getPrice();
+        }
+        
+        newRecipe.setPrice(newPrice);
+        
+        recipeDAO.saveOrUpdate(newRecipe);
+        
+        result.redirectTo(IndexController.class).view(recipe.getId());
+        
+    }
+    
+    @Post("/recipe/update/ingredients")
+    public void updateIngredients(Recipe recipe){
+        Recipe newRecipe = recipeDAO.findById(recipe.getId());
+        
+        newRecipe.setIngredients(recipe.getIngredients());
+        
+        recipeDAO.saveOrUpdate(newRecipe);
+        
+        result.redirectTo(IndexController.class).view(recipe.getId());
+    }
+    
+    @Post("/recipe/update/howtocook")
+    public void updateHowToCook(Recipe recipe){
+        Recipe newRecipe = recipeDAO.findById(recipe.getId());
+        
+        newRecipe.setHowToCook(recipe.getHowToCook());
+        
+        recipeDAO.saveOrUpdate(newRecipe);
+        
+        result.redirectTo(IndexController.class).view(recipe.getId());
+    }
+    
     @Path("/search")
-    public void search(List<String> ingredients){
+    public void search(List<String> ingredients, Double price, String duration, int yield){
         if(ingredients != null){
             
             if(userSession.isLogged()){
@@ -128,7 +240,7 @@ public class IndexController {
                 }
             }            
             
-          List<Recipe> recipes = recipeDAO.findRecipeByIngredient(ingredients);
+          List<Recipe> recipes = recipeDAO.findRecipeByIngredient(ingredients, price, duration, yield);
           Map<Recipe, Integer> counts = new HashMap<Recipe, Integer>();
           for(Recipe r: recipes){
               Integer count = counts.get(r);
@@ -143,7 +255,7 @@ public class IndexController {
           for (Map.Entry<Recipe, Integer> entry : finalMap.entrySet()) {
               recipes.add(entry.getKey());
           }
-          result.include("recipes",recipes).redirectTo(IndexController.class).searchResult();
+          result.include("recipes",recipes).redirectTo(IndexController.class).searchResult(ingredients, price, duration, yield);
         }else{
           result.redirectTo(IndexController.class).index();
         }       

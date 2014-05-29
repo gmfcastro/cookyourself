@@ -7,10 +7,15 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cookyourself?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.c3p0.min_size">5</property>
+    <property name="hibernate.c3p0.max_size">20</property>
+    <property name="hibernate.c3p0.timeout">300</property>
+    <property name="hibernate.c3p0.max_statements">50</property>
+    <property name="hibernate.c3p0.idle_test_period">3000</property>
     <mapping class="br.edu.unifei.cookyourself.model.User"/>
     <mapping class="br.edu.unifei.cookyourself.model.Recipe"/>
-    <mapping class="br.edu.unifei.cookyourself.model.Ingredient"/>
     <mapping class="br.edu.unifei.cookyourself.model.RecipeIngredient"/>
+    <mapping class="br.edu.unifei.cookyourself.model.Comment"/>
     <mapping class="br.edu.unifei.cookyourself.model.Qualification"/>
     <mapping class="br.edu.unifei.cookyourself.model.CrawlerRecord"/>
     <mapping class="br.edu.unifei.cookyourself.model.SearchRecords"/>

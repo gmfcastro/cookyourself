@@ -25,7 +25,6 @@
         function myFunction(number){
             $("#comp"+number).remove();
             $("#inputIng"+number).remove();
-            alert(number);
         }
         
         function surpreenda(){

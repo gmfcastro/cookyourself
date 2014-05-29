@@ -6,6 +6,7 @@
 
 package br.edu.unifei.cookyourself.model;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "crawler_records")
-public class CrawlerRecord {
+public class CrawlerRecord implements Serializable {
     
     @Id
     @GeneratedValue

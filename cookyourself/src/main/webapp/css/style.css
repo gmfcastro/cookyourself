@@ -34,7 +34,6 @@ h1 {
 }
 
 .boxRecipe{
-    padding-right: 0px;
 }
 
 .recipeComp{
@@ -53,7 +52,7 @@ h1 {
 
 #searchResult{
     
-    margin-top: 100px;
+    margin-top: 70px;
     
 }
 
@@ -114,9 +113,16 @@ h1 {
 #sidebar{
     margin-top: 70px;
     margin-left: 20px;
-    height: 87%;
+    height: 133%;
     border-radius: 10px;
     background-color: rgba(39,39,39,100);
+}
+
+td
+{
+    max-width: 750px;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 #ingredients{
@@ -131,6 +137,15 @@ h1 {
 #howToCook{  
     margin-top: 15px;
     margin-left: 20px;
+    height: 45%;
+    border-radius: 10px;
+    background-color: rgba(39,39,39,100);  
+}
+
+#comments{  
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-bottom: 30px;
     height: 45%;
     border-radius: 10px;
     background-color: rgba(39,39,39,100);  

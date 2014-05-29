@@ -28,10 +28,11 @@ public class Recipe implements Serializable {
     @GeneratedValue
     private Long id;
     private String title;
-    private String yield;
+    private int yield;
     private String duration;
     private String author;
     private String photoURL;
+    private Double price;
     @Column(columnDefinition = "text")
     private String howToCook;
     @Column(columnDefinition = "text")
@@ -54,11 +55,11 @@ public class Recipe implements Serializable {
         this.title = title;
     }
 
-    public String getYield() {
+    public int getYield() {
         return yield;
     }
 
-    public void setYield(String yield) {
+    public void setYield(int yield) {
         this.yield = yield;
     }
 
@@ -109,7 +110,13 @@ public class Recipe implements Serializable {
     public void setLikes(int likes) {
         this.likes = likes;
     }
-    
-    
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
       
 }
