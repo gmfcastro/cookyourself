@@ -55,7 +55,7 @@
             }
             var res = text.split(" ");
             var likes = parseInt(res[0]);
-            var url = "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/like/recipe/"+id;
+            var url = "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/unlike/recipe/"+id;
             //var url = "http://localhost:8080/cookyourself/unlike/recipe/"+id;
             $.post(url,function(data,status){
                 likes --;
