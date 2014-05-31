@@ -50,8 +50,8 @@
         }
         
         function logout(){
-            //$.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/logout",function(data,status){
-            $.post("http://localhost:8080/cookyourself/logout",function(data,status){
+            $.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/logout",function(data,status){
+            //$.post("http://localhost:8080/cookyourself/logout",function(data,status){
                 location.reload();
             }); 
         }
@@ -59,8 +59,8 @@
         window.fbAsyncInit = function() {
         FB.init({
           appId      : '638862416204874', // App ID
-          //channelUrl : 'http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself',
-          channelUrl : 'http://localhost:8080/cookyourself',
+          channelUrl : 'http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself',
+          //channelUrl : 'http://localhost:8080/cookyourself',
           status     : true, // check login status
           cookie     : true, // enable cookies to allow the server to access the session
           xfbml      : true  // parse XFBML
@@ -81,8 +81,8 @@
                if (response.authResponse) {
                         FB.api('/me', function(response) {
                             userJson = {'user.name':response.name, 'user.password':response.id, 'user.email':response.email};
-                            //$.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin",userJson,function(data,status){
-                            $.post("http://localhost:8080/cookyourself/doFBLogin",userJson,function(data,status){
+                            $.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin",userJson,function(data,status){
+                            //$.post("http://localhost:8080/cookyourself/doFBLogin",userJson,function(data,status){
                                 location.reload();
                             }); 
                          });
@@ -95,8 +95,8 @@
                if (response.status === 'connected') {
                         FB.api('/me', function(response) {
                             userJson = {'user.name':response.name, 'user.password':response.id, 'user.email':response.email};
-                            //$.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin",userJson,function(data,status){
-                            $.post("http://localhost:8080/cookyourself/doFBLogin",userJson,function(data,status){
+                            $.post("http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin",userJson,function(data,status){
+                            //$.post("http://localhost:8080/cookyourself/doFBLogin",userJson,function(data,status){
                                 location.reload();
                             }); 
                          });               

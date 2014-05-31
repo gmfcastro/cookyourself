@@ -83,7 +83,6 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        function myFunction(number){\n");
       out.write("            $(\"#comp\"+number).remove();\n");
       out.write("            $(\"#inputIng\"+number).remove();\n");
-      out.write("            alert(number);\n");
       out.write("        }\n");
       out.write("        \n");
       out.write("        function surpreenda(){\n");
@@ -272,6 +271,20 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <script>\n");
       out.write("    $(document).ready(function (){\n");
       out.write("        var counter = 0;\n");
+      out.write("        \n");
+      out.write("        $(\"#inputIgredients\").keypress(function(event){\n");
+      out.write("            if(event.which===43){\n");
+      out.write("                var ingredient = $(\"#inputIgredients\").val();\n");
+      out.write("                if(ingredient!== \"\"){\n");
+      out.write("                    ingredient.replace(\"+\", \"\");\n");
+      out.write("                    counter++;\n");
+      out.write("                    $(\"#listIngredients\").append('<li id=\"comp'+counter+'\"><div class=\"ingredientComp ingredientComp-list alert-dismissable\"><button type=\"button\" class=\"close pull-right\" id=\"ing'+counter+'\" onclick=\"myFunction('+counter+')\" aria-hidden=\"true\">&times;</button>'+ingredient+'</div></li>');\n");
+      out.write("                    $(\"#formIngredients\").append('<input type=\"text\" name=\"ingredients['+counter+']\" id=\"inputIng'+counter+'\" value='+ingredient+' hidden>');\n");
+      out.write("                    $(this).val(\"\");\n");
+      out.write("                    event.preventDefault();\n");
+      out.write("                }\n");
+      out.write("            }\n");
+      out.write("        });\n");
       out.write("        \n");
       out.write("        $(\"#addIng\").click(function (){\n");
       out.write("           var ingredient = $(\"#inputIgredients\").val();\n");

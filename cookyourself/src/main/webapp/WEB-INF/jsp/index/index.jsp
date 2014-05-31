@@ -216,6 +216,20 @@
     $(document).ready(function (){
         var counter = 0;
         
+        $("#inputIgredients").keypress(function(event){
+            if(event.which===43){
+                var ingredient = $("#inputIgredients").val();
+                if(ingredient!== ""){
+                    ingredient.replace("+", "");
+                    counter++;
+                    $("#listIngredients").append('<li id="comp'+counter+'"><div class="ingredientComp ingredientComp-list alert-dismissable"><button type="button" class="close pull-right" id="ing'+counter+'" onclick="myFunction('+counter+')" aria-hidden="true">&times;</button>'+ingredient+'</div></li>');
+                    $("#formIngredients").append('<input type="text" name="ingredients['+counter+']" id="inputIng'+counter+'" value='+ingredient+' hidden>');
+                    $(this).val("");
+                    event.preventDefault();
+                }
+            }
+        });
+        
         $("#addIng").click(function (){
            var ingredient = $("#inputIgredients").val();
            counter++;

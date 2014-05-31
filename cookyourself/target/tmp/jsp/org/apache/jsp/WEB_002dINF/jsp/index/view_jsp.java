@@ -13,6 +13,7 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
 
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_url_value_nobody;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_if_test;
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_var_items;
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
 
@@ -23,11 +24,13 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
   public void _jspInit() {
     _jspx_tagPool_c_url_value_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_c_if_test = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _jspx_tagPool_c_forEach_var_items = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
   }
 
   public void _jspDestroy() {
     _jspx_tagPool_c_url_value_nobody.release();
     _jspx_tagPool_c_if_test.release();
+    _jspx_tagPool_c_forEach_var_items.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -101,8 +104,19 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            alert(number);\n");
       out.write("        }\n");
       out.write("        \n");
+      out.write("        function editIngredients(){\n");
+      out.write("            $(\"#ingredientsDiv\").hide();\n");
+      out.write("            $(\"#ingredientsForm\").show();\n");
+      out.write("        }\n");
+      out.write("        \n");
+      out.write("        function editHowTo(){\n");
+      out.write("            $(\"#howToDiv\").hide();\n");
+      out.write("            $(\"#howToForm\").show();\n");
+      out.write("        }\n");
+      out.write("        \n");
       out.write("        function logout(){\n");
-      out.write("            $.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/logout\",function(data,status){\n");
+      out.write("            //$.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/logout\",function(data,status){\n");
+      out.write("            $.post(\"http://localhost:8080/cookyourself/logout\",function(data,status){\n");
       out.write("                location.reload();\n");
       out.write("            }); \n");
       out.write("        }\n");
@@ -110,7 +124,8 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        window.fbAsyncInit = function() {\n");
       out.write("        FB.init({\n");
       out.write("          appId      : '638862416204874', // App ID\n");
-      out.write("          channelUrl : 'http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself',\n");
+      out.write("          //channelUrl : 'http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself',\n");
+      out.write("          channelUrl : 'http://localhost:8080/cookyourself',\n");
       out.write("          status     : true, // check login status\n");
       out.write("          cookie     : true, // enable cookies to allow the server to access the session\n");
       out.write("          xfbml      : true  // parse XFBML\n");
@@ -131,7 +146,8 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("               if (response.authResponse) {\n");
       out.write("                        FB.api('/me', function(response) {\n");
       out.write("                            userJson = {'user.name':response.name, 'user.password':response.id, 'user.email':response.email};\n");
-      out.write("                            $.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
+      out.write("                            //$.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
+      out.write("                            $.post(\"http://localhost:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
       out.write("                                location.reload();\n");
       out.write("                            }); \n");
       out.write("                         });\n");
@@ -144,7 +160,8 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("               if (response.status === 'connected') {\n");
       out.write("                        FB.api('/me', function(response) {\n");
       out.write("                            userJson = {'user.name':response.name, 'user.password':response.id, 'user.email':response.email};\n");
-      out.write("                            $.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
+      out.write("                            //$.post(\"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
+      out.write("                            $.post(\"http://localhost:8080/cookyourself/doFBLogin\",userJson,function(data,status){\n");
       out.write("                                location.reload();\n");
       out.write("                            }); \n");
       out.write("                         });               \n");
@@ -214,7 +231,8 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <hr>\n");
       out.write("                    <h4 style=\"text-align: center;\">Atributos</h4>\n");
       out.write("                    <hr>\n");
-      out.write("                    <p style=\"text-align: center; margin-bottom: 2px;\">Rendimento:<br>\n");
+      out.write("                    <br>\n");
+      out.write("                    <p style=\"text-align: center;\"><h4 style=\"text-align: center;\">Rendimento:</h4>\n");
       out.write("                        <div id=\"yiedlDiv\">\n");
       out.write("                            ");
       if (_jspx_meth_c_if_2(_jspx_page_context))
@@ -226,8 +244,11 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                        </div>\n");
       out.write("                        <div id=\"yieldForm\" style=\"text-align:center;margin:0 auto;\" hidden>\n");
-      out.write("                            <form class=\"form-inline\" role=\"form\" method=\"post\" action=\"\">\n");
-      out.write("                                <input type=\"text\" value=\"");
+      out.write("                            <form class=\"form-inline\" role=\"form\" method=\"post\" action=\"");
+      if (_jspx_meth_c_url_4(_jspx_page_context))
+        return;
+      out.write("\">\n");
+      out.write("                                <input type=\"text\" name=\"recipe.id\" value=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\" hidden />\n");
       out.write("                                <div class=\"form-group\">\n");
@@ -238,7 +259,8 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            </form>\n");
       out.write("                        </div>\n");
       out.write("                    </p>\n");
-      out.write("                    <p style=\"text-align: center\">Tempo de Preparo:<br>\n");
+      out.write("                    <br>\n");
+      out.write("                    <p style=\"text-align: center\"><h4 style=\"text-align: center;\">Tempo de Preparo:</h4>\n");
       out.write("                        <div id=\"durationDiv\">\n");
       out.write("                            ");
       if (_jspx_meth_c_if_4(_jspx_page_context))
@@ -250,40 +272,49 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                        </div>\n");
       out.write("                        <div id=\"durationForm\" style=\"text-align:center;margin:0 auto;\" hidden>\n");
-      out.write("                            <form class=\"form-inline\" role=\"form\" method=\"post\" action=\"\">\n");
-      out.write("                                <input type=\"text\" value=\"");
+      out.write("                            <form class=\"form-inline\" role=\"form\" method=\"post\" action=\"");
+      if (_jspx_meth_c_url_5(_jspx_page_context))
+        return;
+      out.write("\">\n");
+      out.write("                                <input type=\"text\" name=\"recipe.id\" value=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\" hidden />\n");
-      out.write("                                <label class=\"checkbox-inline\">\n");
-      out.write("                                    <input type=\"checkbox\" name=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.duration}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" value=\"00:30\"> 00:30\n");
-      out.write("                                </label>\n");
-      out.write("                                <label class=\"checkbox-inline\">\n");
-      out.write("                                    <input type=\"checkbox\" name=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.duration}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" value=\"01:00\"> 01:00\n");
-      out.write("                                </label>\n");
-      out.write("                                <label class=\"checkbox-inline\">\n");
-      out.write("                                   <input type=\"checkbox\" name=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.duration}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" value=\"01:30\"> 01:30\n");
-      out.write("                                </label>\n");
-      out.write("                                <label class=\"checkbox-inline\">\n");
-      out.write("                                   <input type=\"checkbox\" name=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.duration}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" value=\"02:00\"> 02:00\n");
-      out.write("                                </label>\n");
-      out.write("                                <label class=\"checkbox-inline\">\n");
-      out.write("                                   <input type=\"checkbox\" name=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.duration}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" value=\"Mais de 2:00\"> Mais de 2:00\n");
-      out.write("                                </label>\n");
+      out.write("                                <div class=\"radio\">\n");
+      out.write("                                   <label>\n");
+      out.write("                                    <input type=\"radio\" name=\"recipe.duration\" value=\"00:30\">\n");
+      out.write("                                    00:30\n");
+      out.write("                                  </label>\n");
+      out.write("                                </div>\n");
+      out.write("                                <div class=\"radio\">\n");
+      out.write("                                   <label>\n");
+      out.write("                                    <input type=\"radio\" name=\"recipe.duration\" value=\"01:00\">\n");
+      out.write("                                    01:00\n");
+      out.write("                                  </label>\n");
+      out.write("                                </div>\n");
+      out.write("                                <div class=\"radio\">\n");
+      out.write("                                   <label>\n");
+      out.write("                                    <input type=\"radio\" name=\"recipe.duration\" value=\"01:30\">\n");
+      out.write("                                    01:30\n");
+      out.write("                                  </label>\n");
+      out.write("                                </div>\n");
+      out.write("                                <div class=\"radio\">\n");
+      out.write("                                   <label>\n");
+      out.write("                                    <input type=\"radio\" name=\"recipe.duration\" value=\"02:00\">\n");
+      out.write("                                    02:00\n");
+      out.write("                                  </label>\n");
+      out.write("                                </div>\n");
+      out.write("                                <div class=\"radio\">\n");
+      out.write("                                   <label>\n");
+      out.write("                                    <input type=\"radio\" name=\"recipe.duration\" value=\"Mais que 02:00\">\n");
+      out.write("                                    Mais que 02:00\n");
+      out.write("                                  </label>\n");
+      out.write("                                </div>\n");
       out.write("                                <button type=\"submit\" class=\"btn btn-default btn-sm\">Salvar</button>\n");
       out.write("                            </form>\n");
       out.write("                        </div>\n");
       out.write("                   </p>\n");
-      out.write("                    <p style=\"text-align: center\">Preço(R$)<br>\n");
+      out.write("                   <br>\n");
+      out.write("                    <p style=\"text-align: center\"><h4 style=\"text-align: center;\">Preço(R$)</h4>\n");
       out.write("                        <div id=\"priceDiv\">\n");
       out.write("                            ");
       if (_jspx_meth_c_if_6(_jspx_page_context))
@@ -295,8 +326,11 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("   \n");
       out.write("                        </div>\n");
       out.write("                        <div id=\"priceForm\" style=\"text-align:center;margin:0 auto;\" hidden>\n");
-      out.write("                            <form class=\"form-inline\" role=\"form\" method=\"post\" action=\"\">\n");
-      out.write("                                <input type=\"text\" value=\"");
+      out.write("                            <form class=\"form-inline\" role=\"form\" method=\"post\" action=\"");
+      if (_jspx_meth_c_url_6(_jspx_page_context))
+        return;
+      out.write("\">\n");
+      out.write("                                <input type=\"text\" name=\"recipe.id\" value=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\" hidden />\n");
       out.write("                                <div class=\"form-group\">\n");
@@ -307,43 +341,102 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            </form>\n");
       out.write("                        </div>\n");
       out.write("                    </p>\n");
-      out.write("                    <p style=\"text-align: center\">Autor:<br>");
+      out.write("                    <br>\n");
+      out.write("                    <h4 style=\"text-align: center;\">Autor:</h4><p style=\"text-align: center\">");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.author}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("</p>\n");
       out.write("                </div><!--/span-->\n");
       out.write("                <div class=\"col-sm-3 col-md-8\" id=\"ingredients\" style=\"overflow-y:scroll;\">\n");
-      out.write("                    <div class=\"row\">\n");
-      out.write("                        <div class=\"col-md-8\">\n");
-      out.write("                            <h2>Ingredientes:</h2>\n");
+      out.write("                    <div id=\"ingredientsDiv\">\n");
+      out.write("                        <div class=\"row\">\n");
+      out.write("                            <div class=\"col-md-8\">\n");
+      out.write("                                <h2>Ingredientes:</h2>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-md-4 pull-right\">\n");
+      out.write("                                <button class=\"btn btn-danger pull-right\" style=\"margin-top:20px;\" onclick=\"editIngredients();\">Editar</button>\n");
+      out.write("                            </div>\n");
       out.write("                        </div>\n");
-      out.write("                        <div class=\"col-md-4 pull-right\">\n");
-      out.write("                            <button class=\"btn btn-danger pull-right\" style=\"margin-top:20px;\" onclick=\"editIngredients(");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write(");\">Editar</button>\n");
-      out.write("                        </div>\n");
-      out.write("                    </div>\n");
-      out.write("                    <hr>\n");
-      out.write("                    ");
+      out.write("                        <hr>\n");
+      out.write("                        ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.ingredients}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\n");
+      out.write("                    </div>\n");
+      out.write("                    <div id=\"ingredientsForm\" hidden>\n");
+      out.write("                        <form method=\"post\" action=\"");
+      if (_jspx_meth_c_url_7(_jspx_page_context))
+        return;
+      out.write("\" accept-charset=\"ISO-8859-1\">\n");
+      out.write("                            <div class=\"row\">\n");
+      out.write("                                <div class=\"col-md-8\">\n");
+      out.write("                                    <h2>Ingredientes:</h2>\n");
+      out.write("                                </div>\n");
+      out.write("                                <div class=\"col-md-4 pull-right\">\n");
+      out.write("                                    <button type=\"submit \"class=\"btn btn-warning pull-right\" style=\"margin-top:20px;\">Salvar</button>\n");
+      out.write("                                </div>\n");
+      out.write("                             </div>\n");
+      out.write("                             <hr>\n");
+      out.write("                             <input type=\"text\" name=\"recipe.id\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" hidden />\n");
+      out.write("                             <textarea class=\"form-control\" name=\"recipe.ingredients\" rows=\"6\">");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.ingredients}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</textarea>         \n");
+      out.write("                        </form>           \n");
+      out.write("                    </div>\n");
       out.write("\n");
       out.write("                </div><!--/span-->\n");
       out.write("                \n");
       out.write("                <div class=\"col-sm-3 col-md-8 col-md-offset-3\" id=\"howToCook\" style=\"overflow-y:scroll;\">\n");
-      out.write("                    <div class=\"row\">\n");
-      out.write("                        <div class=\"col-md-8\">\n");
-      out.write("                            <h2 style=\"width:\">Modo de preparo:</h2>\n");
+      out.write("                    <div id=\"howToDiv\">\n");
+      out.write("                        <div class=\"row\">\n");
+      out.write("                            <div class=\"col-md-8\">\n");
+      out.write("                                <h2 style=\"width:\">Modo de preparo:</h2>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-md-4 pull-right\">\n");
+      out.write("                                <button class=\"btn btn-danger pull-right\" style=\"margin-top:20px;\" onclick=\"editHowTo()\">Editar</button><br>\n");
+      out.write("                            </div>\n");
       out.write("                        </div>\n");
-      out.write("                        <div class=\"col-md-4 pull-right\">\n");
-      out.write("                            <button class=\"btn btn-danger pull-right\" style=\"margin-top:20px;\" onclick=\"editHowTo(");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write(")\">Editar</button><br>\n");
-      out.write("                        </div>\n");
-      out.write("                    </div>\n");
-      out.write("                    <hr>\n");
-      out.write("                    ");
+      out.write("                        <hr>\n");
+      out.write("                        ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.howToCook}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\n");
+      out.write("                    </div>\n");
+      out.write("                    <div id=\"howToForm\" hidden>\n");
+      out.write("                        <form method=\"post\" action=\"");
+      if (_jspx_meth_c_url_8(_jspx_page_context))
+        return;
+      out.write("\" accept-charset=\"ISO-8859-1\">\n");
+      out.write("                            <div class=\"row\">\n");
+      out.write("                                <div class=\"col-md-8\">\n");
+      out.write("                                    <h2>Modo de preparo:</h2>\n");
+      out.write("                                </div>\n");
+      out.write("                                <div class=\"col-md-4 pull-right\">\n");
+      out.write("                                    <button type=\"submit \"class=\"btn btn-warning pull-right\" style=\"margin-top:20px;\">Salvar</button>\n");
+      out.write("                                </div>\n");
+      out.write("                             </div>\n");
+      out.write("                             <hr>\n");
+      out.write("                             <input type=\"text\" name=\"recipe.id\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" hidden />\n");
+      out.write("                             <textarea class=\"form-control\" name=\"recipe.howToCook\" rows=\"6\">");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.howToCook}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</textarea>         \n");
+      out.write("                        </form>           \n");
+      out.write("                    </div>\n");
+      out.write("                </div>\n");
+      out.write("                <div class=\"col-sm-3 col-md-8\" id=\"comments\" style=\"overflow-y:scroll;\">\n");
+      out.write("                    <div class=\"row\">\n");
+      out.write("                        <div class=\"col-md-8\">\n");
+      out.write("                            <h2>Comentários:</h2>\n");
+      out.write("                        </div>\n");
+      out.write("                    </div>\n");
+      out.write("                    ");
+      if (_jspx_meth_c_if_8(_jspx_page_context))
+        return;
+      out.write("\n");
+      out.write("                    ");
+      if (_jspx_meth_c_if_9(_jspx_page_context))
+        return;
       out.write("\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
@@ -368,7 +461,7 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("    <script type='text/javascript' src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>\n");
       out.write("    <script type='text/javascript' src=\"");
-      if (_jspx_meth_c_url_4(_jspx_page_context))
+      if (_jspx_meth_c_url_10(_jspx_page_context))
         return;
       out.write("\"></script>\n");
       out.write("    <script>\n");
@@ -587,6 +680,24 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
+  private boolean _jspx_meth_c_url_4(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:url
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_url_4 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _jspx_tagPool_c_url_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_url_4.setPageContext(_jspx_page_context);
+    _jspx_th_c_url_4.setParent(null);
+    _jspx_th_c_url_4.setValue("/recipe/update/yield");
+    int _jspx_eval_c_url_4 = _jspx_th_c_url_4.doStartTag();
+    if (_jspx_th_c_url_4.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_4);
+      return true;
+    }
+    _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_4);
+    return false;
+  }
+
   private boolean _jspx_meth_c_if_4(PageContext _jspx_page_context)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
@@ -646,6 +757,24 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
+  private boolean _jspx_meth_c_url_5(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:url
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_url_5 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _jspx_tagPool_c_url_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_url_5.setPageContext(_jspx_page_context);
+    _jspx_th_c_url_5.setParent(null);
+    _jspx_th_c_url_5.setValue("/recipe/update/duration");
+    int _jspx_eval_c_url_5 = _jspx_th_c_url_5.doStartTag();
+    if (_jspx_th_c_url_5.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_5);
+      return true;
+    }
+    _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_5);
+    return false;
+  }
+
   private boolean _jspx_meth_c_if_6(PageContext _jspx_page_context)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
@@ -688,7 +817,7 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
       do {
         out.write("\n");
         out.write("                                <p style=\"text-align: center; margin-bottom: 3px;\">");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.price}", java.lang.String.class, (PageContext)_jspx_page_context, null));
         out.write("</p> <!--- PRECO AQUI !! ---->\n");
         out.write("                                <button class=\"btn btn-danger btn-xs center-block\" onclick=\"editPrice();\">Quanto custou?</button>\n");
         out.write("                            ");
@@ -705,21 +834,216 @@ public final class view_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_c_url_4(PageContext _jspx_page_context)
+  private boolean _jspx_meth_c_url_6(PageContext _jspx_page_context)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:url
-    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_url_4 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _jspx_tagPool_c_url_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
-    _jspx_th_c_url_4.setPageContext(_jspx_page_context);
-    _jspx_th_c_url_4.setParent(null);
-    _jspx_th_c_url_4.setValue("/js/bootstrap.min.js");
-    int _jspx_eval_c_url_4 = _jspx_th_c_url_4.doStartTag();
-    if (_jspx_th_c_url_4.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_4);
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_url_6 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _jspx_tagPool_c_url_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_url_6.setPageContext(_jspx_page_context);
+    _jspx_th_c_url_6.setParent(null);
+    _jspx_th_c_url_6.setValue("/recipe/update/price");
+    int _jspx_eval_c_url_6 = _jspx_th_c_url_6.doStartTag();
+    if (_jspx_th_c_url_6.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_6);
       return true;
     }
-    _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_4);
+    _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_6);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_url_7(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:url
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_url_7 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _jspx_tagPool_c_url_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_url_7.setPageContext(_jspx_page_context);
+    _jspx_th_c_url_7.setParent(null);
+    _jspx_th_c_url_7.setValue("/recipe/update/ingredients");
+    int _jspx_eval_c_url_7 = _jspx_th_c_url_7.doStartTag();
+    if (_jspx_th_c_url_7.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_7);
+      return true;
+    }
+    _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_7);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_url_8(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:url
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_url_8 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _jspx_tagPool_c_url_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_url_8.setPageContext(_jspx_page_context);
+    _jspx_th_c_url_8.setParent(null);
+    _jspx_th_c_url_8.setValue("/recipe/update/howtocook");
+    int _jspx_eval_c_url_8 = _jspx_th_c_url_8.doStartTag();
+    if (_jspx_th_c_url_8.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_8);
+      return true;
+    }
+    _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_8);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_if_8(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:if
+    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_8 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
+    _jspx_th_c_if_8.setPageContext(_jspx_page_context);
+    _jspx_th_c_if_8.setParent(null);
+    _jspx_th_c_if_8.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${session == null}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    int _jspx_eval_c_if_8 = _jspx_th_c_if_8.doStartTag();
+    if (_jspx_eval_c_if_8 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+      do {
+        out.write("\n");
+        out.write("                        <button class=\"btn btn-danger btn-lg center-block\" style=\"margin-top: 10%\" onclick=\"statusFacebook();\">Facebook Login</button>\n");
+        out.write("                    ");
+        int evalDoAfterBody = _jspx_th_c_if_8.doAfterBody();
+        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+          break;
+      } while (true);
+    }
+    if (_jspx_th_c_if_8.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_8);
+      return true;
+    }
+    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_8);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_if_9(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:if
+    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_9 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
+    _jspx_th_c_if_9.setPageContext(_jspx_page_context);
+    _jspx_th_c_if_9.setParent(null);
+    _jspx_th_c_if_9.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${session != null}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    int _jspx_eval_c_if_9 = _jspx_th_c_if_9.doStartTag();
+    if (_jspx_eval_c_if_9 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+      do {
+        out.write("\n");
+        out.write("                        <form method=\"post\" class=\"form-inline\" action=\"");
+        if (_jspx_meth_c_url_9((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_if_9, _jspx_page_context))
+          return true;
+        out.write("\" accept-charset=\"ISO-8859-1\">\n");
+        out.write("                            <table class=\"table\" style=\"width: 800px;table-layout: fixed; \">\n");
+        out.write("                                <tbody>\n");
+        out.write("                                    ");
+        if (_jspx_meth_c_forEach_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_if_9, _jspx_page_context))
+          return true;
+        out.write("\n");
+        out.write("                                </tbody>\n");
+        out.write("                             </table>\n");
+        out.write("                                     <hr>\n");
+        out.write("                                     <input type=\"text\" name=\"recipeId\" value=\"");
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${recipe.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+        out.write("\" hidden />\n");
+        out.write("                                               <div class=\"form-group\">\n");
+        out.write("                                                    <label class=\"sr-only\" for=\"commentInput\">Comentário</label>\n");
+        out.write("                                                    <input type=\"text\" class=\"form-control\" name=\"comment.comment\" id=\"commentInput\" placeholder=\"Comentário\" style=\"width: 700px\" required>\n");
+        out.write("                                                </div>\n");
+        out.write("                                    <button class=\"btn btn-danger\" type=\"submit\">Enviar</button></td>\n");
+        out.write("                                \n");
+        out.write("                            \n");
+        out.write("                        </form>\n");
+        out.write("                    ");
+        int evalDoAfterBody = _jspx_th_c_if_9.doAfterBody();
+        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+          break;
+      } while (true);
+    }
+    if (_jspx_th_c_if_9.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_9);
+      return true;
+    }
+    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_9);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_url_9(javax.servlet.jsp.tagext.JspTag _jspx_th_c_if_9, PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:url
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_url_9 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _jspx_tagPool_c_url_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_url_9.setPageContext(_jspx_page_context);
+    _jspx_th_c_url_9.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_if_9);
+    _jspx_th_c_url_9.setValue("/recipe/comment");
+    int _jspx_eval_c_url_9 = _jspx_th_c_url_9.doStartTag();
+    if (_jspx_th_c_url_9.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_9);
+      return true;
+    }
+    _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_9);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_forEach_0(javax.servlet.jsp.tagext.JspTag _jspx_th_c_if_9, PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:forEach
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    _jspx_th_c_forEach_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_forEach_0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_if_9);
+    _jspx_th_c_forEach_0.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${comments}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_0.setVar("comment");
+    int[] _jspx_push_body_count_c_forEach_0 = new int[] { 0 };
+    try {
+      int _jspx_eval_c_forEach_0 = _jspx_th_c_forEach_0.doStartTag();
+      if (_jspx_eval_c_forEach_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+        do {
+          out.write("\n");
+          out.write("                                       <tr style=\"width: 100px;\">\n");
+          out.write("                                           <td style=\"color: #e38d13\">");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${comment.user.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write(":</td>\n");
+          out.write("                                           <td style=\"color: #ffffff;\">");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${comment.comment}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</td>\n");
+          out.write("                                       </tr>\n");
+          out.write("                                    ");
+          int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
+          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+            break;
+        } while (true);
+      }
+      if (_jspx_th_c_forEach_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+        return true;
+      }
+    } catch (Throwable _jspx_exception) {
+      while (_jspx_push_body_count_c_forEach_0[0]-- > 0)
+        out = _jspx_page_context.popBody();
+      _jspx_th_c_forEach_0.doCatch(_jspx_exception);
+    } finally {
+      _jspx_th_c_forEach_0.doFinally();
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_0);
+    }
+    return false;
+  }
+
+  private boolean _jspx_meth_c_url_10(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:url
+    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_url_10 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _jspx_tagPool_c_url_value_nobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
+    _jspx_th_c_url_10.setPageContext(_jspx_page_context);
+    _jspx_th_c_url_10.setParent(null);
+    _jspx_th_c_url_10.setValue("/js/bootstrap.min.js");
+    int _jspx_eval_c_url_10 = _jspx_th_c_url_10.doStartTag();
+    if (_jspx_th_c_url_10.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_10);
+      return true;
+    }
+    _jspx_tagPool_c_url_value_nobody.reuse(_jspx_th_c_url_10);
     return false;
   }
 }
