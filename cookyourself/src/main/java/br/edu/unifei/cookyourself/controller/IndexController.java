@@ -77,7 +77,7 @@ public class IndexController {
         
         result.include("recipes",recipeDAO.findMostLikedRecipes());
         result.include("session", userSession.getUser());
-        
+        result.include("curtis",qualificationDAO.findByUser(userSession.getUser()));
     }
     
     @Path("/view/{id}")
