@@ -159,7 +159,7 @@
 
                   <form class="col-lg-12 form-inline" role="form" method="post" action="<c:url value="/search"/>">
                     <div class="input-group" style="width:600px;text-align:center;margin:0 auto;" id="formIngredients">
-                    <input class="form-control input-lg" id="inputIgredients" placeholder="Procure por ingredientes" type="text">
+                    <input class="form-control input-lg" id="inputIgredients" name="ingredients[]" placeholder="Procure por ingredientes" type="text">
                       <span class="input-group-btn"><button class="btn btn-lg btn-danger" id="addIng" type="button">+</button></span>
                     </div>
                     <br><br>

@@ -137,7 +137,7 @@ public class IndexController {
             if(ingredientsToSearch == null){
                 result.redirectTo(IndexController.class).destaques();
             }else{
-                result.redirectTo(IndexController.class).search(ingredientsToSearch, 0d, null, 0);
+                result.redirectTo(IndexController.class).search(ingredientsToSearch, null, null, 0);
             }
         }else{
             result.include("error", "Você deve fazer o login primeiro").redirectTo(IndexController.class).index();

@@ -106,8 +106,8 @@ public final class destaques_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            }\n");
       out.write("            var res = text.split(\" \");\n");
       out.write("            var likes = parseInt(res[0]);\n");
-      out.write("            //var url = \"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/like/recipe/\"+id;\n");
-      out.write("            var url = \"http://localhost:8080/cookyourself/like/recipe/\"+id;\n");
+      out.write("            var url = \"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/like/recipe/\"+id;\n");
+      out.write("            //var url = \"http://localhost:8080/cookyourself/like/recipe/\"+id;\n");
       out.write("            $.post(url,function(data,status){\n");
       out.write("                likes ++;\n");
       out.write("                $(\"#\"+id).attr(\"onclick\",\"unlike(\"+id+\");\");\n");
@@ -124,8 +124,8 @@ public final class destaques_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            }\n");
       out.write("            var res = text.split(\" \");\n");
       out.write("            var likes = parseInt(res[0]);\n");
-      out.write("            //var url = \"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/like/recipe/\"+id;\n");
-      out.write("            var url = \"http://localhost:8080/cookyourself/unlike/recipe/\"+id;\n");
+      out.write("            var url = \"http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/unlike/recipe/\"+id;\n");
+      out.write("            //var url = \"http://localhost:8080/cookyourself/unlike/recipe/\"+id;\n");
       out.write("            $.post(url,function(data,status){\n");
       out.write("                likes --;\n");
       out.write("                $(\"#des\"+id).attr(\"onclick\",\"like(\"+id+\");\");\n");

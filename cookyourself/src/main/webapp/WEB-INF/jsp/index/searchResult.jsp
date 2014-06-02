@@ -158,7 +158,7 @@
         <div class="container-full" id="indexBg">
             <div class="row">
                 <div class="col-sm-3 col-md-3" id="sidebar" style="overflow-y:scroll; margin-left: 30px;height: 85%;position: fixed;text-align: center;">
-                    <form role="form" method="post" action="<c:url value="/search"/>">
+                    <form role="form" method="post" id="filterForm" action="<c:url value="/search"/>">
                     <c:forEach items="${ingredients}" var="ingredient">
                         <input type="text" name="ingredients" value="${ingredient}" hidden>
                     </c:forEach>
@@ -310,6 +310,7 @@
                     change: function(event,ui){
                         var valor = $( "#sliderYield" ).slider( "value" );
                         $("#filterYield").val(valor);
+                        $("#filterForm").submit();
                     }
                 });
                 
@@ -320,6 +321,7 @@
                     change: function(event,ui){
                         var valor = $( "#sliderYield" ).slider( "value" );
                         $("#filterYield").val(valor);
+                        $("#filterForm").submit();
                     },
                     create: function(event,ui){
                         var valor = $( "#sliderYield" ).slider( "value" );
@@ -338,6 +340,7 @@
                     change:function(event,ui){
                         var valor = $( "#sliderPrice" ).slider( "value" );
                         $("#filterPrice").val(valor);
+                        $("#filterForm").submit();
                     }
                 });
             }else{
@@ -349,6 +352,7 @@
                     change:function(event,ui){
                         var valor = $( "#sliderPrice" ).slider( "value" );
                         $("#filterPrice").val(valor);
+                        $("#filterForm").submit();
                     },
                     create: function(event,ui){
                         var valor = $( "#sliderPrice" ).slider( "value" );
@@ -356,6 +360,11 @@
                     }
                 });
             }
+            
+            $(".radio").change(function(){
+                $("#filterForm").submit();
+            });
+                
         });
     </script>
     <script type='text/javascript' src="<c:url value='/js/bootstrap.min.js' />"></script>
