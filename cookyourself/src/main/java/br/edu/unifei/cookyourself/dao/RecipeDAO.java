@@ -43,14 +43,14 @@ public class RecipeDAO extends GenericDAO<Recipe>{
                   price = 200d;
               }
               for(String s: ingredients){
-                Query query = session.createQuery("Select r from Recipe as r where r.ingredients like '%"+s+"%' or r.title like '%"+s+"%' and r.price<"+price+" and r.yield >"+yield+"");
+                Query query = session.createQuery("Select r from Recipe as r where (r.ingredients like '%"+s+"%' or r.title like '%"+s+"%') and r.price<"+price+" and r.yield >"+yield+"");
                 for(Recipe r:(List<Recipe>)query.list()){
                     recipes.add(r);
                 }
             }
           }else{
             for(String s: ingredients){
-                Query query = session.createQuery("Select r from Recipe as r where r.ingredients like '%"+s+"%' or r.title like '%"+s+"%' and r.price<"+price+" and r.yield >"+yield+" and r.duration ='"+duration+"' ");
+                Query query = session.createQuery("Select r from Recipe as r where (r.ingredients like '%"+s+"%' or r.title like '%"+s+"%') and r.price<"+price+" and r.yield >"+yield+" and r.duration ='"+duration+"' ");
                 for(Recipe r:(List<Recipe>)query.list()){
                     recipes.add(r);
                 }
@@ -61,7 +61,7 @@ public class RecipeDAO extends GenericDAO<Recipe>{
         }else{
         
             for(String s: ingredients){
-                Query query = session.createQuery("Select r from Recipe as r where r.ingredients like '%"+s+"%' or r.title like '%"+s+"%'");
+                Query query = session.createQuery("Select r from Recipe as r where (r.ingredients like '%"+s+"%' or r.title like '%"+s+"%')");
                 for(Recipe r:(List<Recipe>)query.list()){
                     recipes.add(r);
                 }
