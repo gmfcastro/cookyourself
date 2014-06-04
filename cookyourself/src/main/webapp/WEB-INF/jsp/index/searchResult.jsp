@@ -250,9 +250,18 @@
                     <c:forEach items="${recipes}" var="recipe">
                         <div class="col-md-6 boxRecipe">   
                             <div class="panel panel-warning" style="margin-top: 10px;">
-                               <a href="<c:url value="/view/${recipe.id}"/>"><div class="panel-heading">
-                                   <img src="${recipe.photoURL}" alt="${recipe.title}" style="width: 100%;height: 230px;"/>
-                               </div></a>
+                               <form method="post" id="formViewRecipe${recipe.id}" action="<c:url value="/click/recipe"/>">
+                               <input type="text" name="id" value="${recipe.id}" hidden>
+                               <c:forEach items="${ingredients}" var="ingredient">
+                                   <input type="text" name="ingredients" value="${ingredient}" hidden>
+                               </c:forEach>
+                                <div class="submitViewForm" id="${recipe.id}" style="cursor: pointer;">
+                                 <div class="panel-heading">
+                                     <img src="${recipe.photoURL}" alt="${recipe.title}" style="width: 100%;height: 230px;"/>
+                                 </div>
+                                </div>
+                               </form>
+                               
                                <div class="panel-body" style="color:#101010; ">
                                  ${recipe.title}
                                  
@@ -363,6 +372,11 @@
             
             $(".radio").change(function(){
                 $("#filterForm").submit();
+            });
+            
+            $(".submitViewForm").click(function (){
+               var id = $(this).attr('id');
+               $("#formViewRecipe"+id).submit();
             });
                 
         });

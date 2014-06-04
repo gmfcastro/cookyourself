@@ -21,6 +21,7 @@ import br.edu.unifei.cookyourself.model.Comment;
 import br.edu.unifei.cookyourself.model.Qualification;
 import br.edu.unifei.cookyourself.model.Recipe;
 import br.edu.unifei.cookyourself.model.SearchRecords;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -81,15 +82,34 @@ public class IndexController {
     }
     
     @Path("/view/{id}")
-    public void view(Long id){
+    public void view(Long id, List<String> ingredientes){
         Recipe recipe = recipeDAO.findById(id);
         result.include("recipe",recipe);
         result.include("comments",commentDAO.findByRecipe(recipe));
         result.include("session",userSession.getUser());
+        if(ingredientes !=null){
+        result.include("ingredientes",ingredientes);
+        int count = 0;
+        List<Recipe> list = this.resturnSearchResults(ingredientes, null, null, 0);
+        List<Recipe> similares = new ArrayList<Recipe>();
+        if(list!=null){
+
+            for(Recipe r: list){
+                if(r.getId() != id){
+                    similares.add(r);
+                    count ++;
+                }
+                if(count >= 3){
+                    break;
+                }
+            }
+        }
+        result.include("similares",similares);
+        }
     }
     
     @Post("/recipe/comment")
-    public void comment(Long recipeId, Comment comment){
+    public void comment(Long recipeId, Comment comment,List<String> ingredients){
         Recipe recipe = recipeDAO.findById(recipeId);
         
         comment.setUser(userSession.getUser());
@@ -97,7 +117,7 @@ public class IndexController {
         
         commentDAO.saveOrUpdate(comment);
         
-        result.redirectTo(IndexController.class).view(recipeId);
+        result.redirectTo(IndexController.class).view(recipeId,ingredients);
     }
     
     @Post("/like/recipe/{id}")
@@ -114,6 +134,13 @@ public class IndexController {
             qualificationDAO.saveOrUpdate(like);
         }
         result.use(Results.status()).ok();
+    }
+    
+    @Post("/click/recipe")
+    public void clickRecipe(Long id, List<String> ingredients){
+        
+        result.redirectTo(IndexController.class).view(id, ingredients);
+        
     }
     
     @Post("/unlike/recipe/{id}")
@@ -145,7 +172,7 @@ public class IndexController {
     }
     
     @Post("/recipe/update/yield")
-    public void updateYield(Recipe recipe){
+    public void updateYield(Recipe recipe,List<String> ingredients){
         
         Recipe newRecipe = recipeDAO.findById(recipe.getId());
         
@@ -162,23 +189,23 @@ public class IndexController {
         
         recipeDAO.saveOrUpdate(newRecipe);
         
-        result.redirectTo(IndexController.class).view(recipe.getId());
+        result.redirectTo(IndexController.class).view(recipe.getId(),ingredients);
     }
     
     @Post("/recipe/update/duration")
-    public void updateDuration(Recipe recipe){
+    public void updateDuration(Recipe recipe,List<String> ingredients){
         
         Recipe newRecipe = recipeDAO.findById(recipe.getId());
         newRecipe.setDuration(recipe.getDuration());
         
         recipeDAO.saveOrUpdate(newRecipe);
         
-        result.redirectTo(IndexController.class).view(recipe.getId());
+        result.redirectTo(IndexController.class).view(recipe.getId(),ingredients);
         
     }
     
     @Post("/recipe/update/price")
-    public void updatePrice(Recipe recipe){
+    public void updatePrice(Recipe recipe,List<String> ingredients){
         
         Recipe newRecipe = recipeDAO.findById(recipe.getId());
         
@@ -194,34 +221,45 @@ public class IndexController {
         
         recipeDAO.saveOrUpdate(newRecipe);
         
-        result.redirectTo(IndexController.class).view(recipe.getId());
+        result.redirectTo(IndexController.class).view(recipe.getId(),ingredients);
         
     }
     
     @Post("/recipe/update/ingredients")
-    public void updateIngredients(Recipe recipe){
+    public void updateIngredients(Recipe recipe,List<String> ingredients){
         Recipe newRecipe = recipeDAO.findById(recipe.getId());
         
         newRecipe.setIngredients(recipe.getIngredients());
         
         recipeDAO.saveOrUpdate(newRecipe);
         
-        result.redirectTo(IndexController.class).view(recipe.getId());
+        result.redirectTo(IndexController.class).view(recipe.getId(),ingredients);
     }
     
     @Post("/recipe/update/howtocook")
-    public void updateHowToCook(Recipe recipe){
+    public void updateHowToCook(Recipe recipe,List<String> ingredients){
         Recipe newRecipe = recipeDAO.findById(recipe.getId());
         
         newRecipe.setHowToCook(recipe.getHowToCook());
         
         recipeDAO.saveOrUpdate(newRecipe);
         
-        result.redirectTo(IndexController.class).view(recipe.getId());
+        result.redirectTo(IndexController.class).view(recipe.getId(),ingredients);
     }
     
     @Path("/search")
     public void search(List<String> ingredients, Double price, String duration, int yield){
+        
+        List<Recipe> recipes = this.resturnSearchResults(ingredients, price, duration, yield);
+        
+        if(recipes == null){
+            result.redirectTo(IndexController.class).index();
+        }else{
+            result.include("recipes",recipes).redirectTo(IndexController.class).searchResult(ingredients, price, duration, yield);
+        }    
+    }
+    
+    private List<Recipe> resturnSearchResults(List<String> ingredients, Double price, String duration, int yield){
         if(ingredients != null){
             
             if(userSession.isLogged()){
@@ -255,10 +293,10 @@ public class IndexController {
           for (Map.Entry<Recipe, Integer> entry : finalMap.entrySet()) {
               recipes.add(entry.getKey());
           }
-          result.include("recipes",recipes).redirectTo(IndexController.class).searchResult(ingredients, price, duration, yield);
+          return recipes;
         }else{
-          result.redirectTo(IndexController.class).index();
-        }       
+          return null;
+        }      
     }
     
     private static Map sortByValues(Map map) { 

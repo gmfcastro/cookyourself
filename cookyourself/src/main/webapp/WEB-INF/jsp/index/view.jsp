@@ -175,6 +175,9 @@
                         <div id="yieldForm" style="text-align:center;margin:0 auto;" hidden>
                             <form class="form-inline" role="form" method="post" action="<c:url value="/recipe/update/yield"/>">
                                 <input type="text" name="recipe.id" value="${recipe.id}" hidden />
+                                <c:forEach items="${ingredientes}" var="ingredient">
+                                     <input type="text" name="ingredients" value="${ingredient}" hidden>
+                                </c:forEach>
                                 <div class="form-group">
                                     <label class="sr-only" for="inputYield">Yield</label>
                                     <input type="number" class="form-control input-sm" name="recipe.yield" id="inptYield" placeholder="Rende" size="2"/>
@@ -197,6 +200,9 @@
                         <div id="durationForm" style="text-align:center;margin:0 auto;" hidden>
                             <form class="form-inline" role="form" method="post" action="<c:url value="/recipe/update/duration"/>">
                                 <input type="text" name="recipe.id" value="${recipe.id}" hidden />
+                                <c:forEach items="${ingredientes}" var="ingredient">
+                                     <input type="text" name="ingredients" value="${ingredient}" hidden>
+                                </c:forEach>
                                 <div class="radio">
                                    <label>
                                     <input type="radio" name="recipe.duration" value="00:30">
@@ -245,6 +251,9 @@
                         <div id="priceForm" style="text-align:center;margin:0 auto;" hidden>
                             <form class="form-inline" role="form" method="post" action="<c:url value="/recipe/update/price"/>">
                                 <input type="text" name="recipe.id" value="${recipe.id}" hidden />
+                                <c:forEach items="${ingredientes}" var="ingredient">
+                                     <input type="text" name="ingredients" value="${ingredient}" hidden>
+                                </c:forEach>
                                 <div class="form-group">
                                     <label class="sr-only" for="inputPrice">Price</label>
                                     <input type="number" class="form-control input-sm" name="recipe.price" id="inputPrice" placeholder="Preço" min="0" max="9999" step="0.01" size="4">
@@ -255,6 +264,70 @@
                     </p>
                     <br>
                     <h4 style="text-align: center;">Autor:</h4><p style="text-align: center">${recipe.author}</p>
+                    <c:if test="${similares != null}">
+                        <h4 style="text-align: center;">Veja Também:</h4><br>
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <c:forEach items="${similares}" var="similar" varStatus="loop"> 
+                                    <c:if test="${loop.index == 0}">                                    
+                                        <li data-target="#carousel-example-generic" data-slide-to="${loop.index}" class="active"></li>
+                                    </c:if>
+                                    <c:if test="${loop.index != 0}">
+                                        <li data-target="#carousel-example-generic" data-slide-to="${loop.index}"></li>
+                                    </c:if>
+                                </c:forEach>
+                              </ol>
+                            <!-- Wrapper for slides -->
+                            
+                            <div class="carousel-inner"> 
+                                <c:forEach items="${similares}" var="similar" varStatus="loop">                    
+                                <c:if test="${loop.index == 0}"> 
+                                    <div class="item active">
+                                        <form method="post" class="carrouselForm" id="formViewRecipe${similar.id}" action="<c:url value="/click/recipe"/>">
+                                        <input type="text" name="id" value="${similar.id}" hidden>
+                                        <c:forEach items="${ingredientes}" var="ingredient">
+                                           <input type="text" name="ingredients" value="${ingredient}" hidden>
+                                        </c:forEach>
+                                        <div class="submitViewForm" id="${similar.id}" style="cursor: pointer;">
+                                        <img src="${similar.photoURL}" alt="${similar.title}" class="center-block">
+                                        </div>
+                                        </form>
+                                      <div class="carousel-caption">
+                                        ${similar.title}
+                                      </div>
+                                    </div>
+                                </c:if>
+                                <c:if test="${loop.index != 0}"> 
+                                    <div class="item">
+                                       <form method="post" class="carrouselForm" id="formViewRecipe${similar.id}" action="<c:url value="/click/recipe"/>">
+                                        <input type="text" name="id" value="${similar.id}" hidden>
+                                        <c:forEach items="${ingredientes}" var="ingredient">
+                                           <input type="text" name="ingredients" value="${ingredient}" hidden>
+                                       </c:forEach>
+                                      <div class="submitViewForm" id="${similar.id}" style="cursor: pointer;">
+                                        <img src="${similar.photoURL}" alt="${similar.title}" class="center-block">
+                                      </div>
+                                      </form>
+                                      <div class="carousel-caption">
+                                        ${similar.title}
+                                      </div>
+                                    </div>
+                                </c:if>
+                                
+                             </c:forEach>    
+                            </div>
+                            
+                                 
+
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                          </div>
+                    </c:if>
                 </div><!--/span-->
                 <div class="col-sm-3 col-md-8" id="ingredients" style="overflow-y:scroll;">
                     <div id="ingredientsDiv">
@@ -281,6 +354,9 @@
                              </div>
                              <hr>
                              <input type="text" name="recipe.id" value="${recipe.id}" hidden />
+                             <c:forEach items="${ingredientes}" var="ingredient">
+                                     <input type="text" name="ingredients" value="${ingredient}" hidden>
+                             </c:forEach>
                              <textarea class="form-control" name="recipe.ingredients" rows="6">${recipe.ingredients}</textarea>         
                         </form>           
                     </div>
@@ -312,6 +388,9 @@
                              </div>
                              <hr>
                              <input type="text" name="recipe.id" value="${recipe.id}" hidden />
+                             <c:forEach items="${ingredientes}" var="ingredient">
+                                     <input type="text" name="ingredients" value="${ingredient}" hidden>
+                             </c:forEach>
                              <textarea class="form-control" name="recipe.howToCook" rows="6">${recipe.howToCook}</textarea>         
                         </form>           
                     </div>
@@ -339,6 +418,9 @@
                              </table>
                                      <hr>
                                      <input type="text" name="recipeId" value="${recipe.id}" hidden />
+                                     <c:forEach items="${ingredientes}" var="ingredient">
+                                        <input type="text" name="ingredients" value="${ingredient}" hidden>
+                                    </c:forEach>
                                                <div class="form-group">
                                                     <label class="sr-only" for="commentInput">Comentário</label>
                                                     <input type="text" class="form-control" name="comment.comment" id="commentInput" placeholder="Comentário" style="width: 700px" required>
@@ -373,6 +455,11 @@
     <script type='text/javascript' src="<c:url value='/js/bootstrap.min.js' />"></script>
     <script>
         $('#howToCook').scrollspy();
+        $('.carousel').carousel();
+        $(".submitViewForm").click(function (){
+               var id = $(this).attr('id');
+               $("#formViewRecipe"+id).submit();
+        });
     </script>
   </body>
 </html>

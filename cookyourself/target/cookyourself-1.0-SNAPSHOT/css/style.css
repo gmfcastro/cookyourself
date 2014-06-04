@@ -22,6 +22,17 @@ h1 {
 	color:#DDCCEE;
 }
 
+.carousel-indicators{
+    bottom: -30px;
+}
+
+.carousel-caption{
+    padding-bottom: 0px;
+}
+
+.carrouselForm{
+    
+}
 
 /* Custom container */
 .container-full {
