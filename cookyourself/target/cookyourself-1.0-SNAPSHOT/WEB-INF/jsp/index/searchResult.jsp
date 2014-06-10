@@ -153,8 +153,6 @@
                   </div>
                 </div>
           </nav>
-        
-      
         <div class="container-full" id="indexBg">
             <div class="row">
                 <div class="col-sm-3 col-md-3" id="sidebar" style="overflow-y:scroll; margin-left: 30px;height: 85%;position: fixed;text-align: center;">
@@ -246,6 +244,7 @@
             </div>
             
             <div class="container" id="searchResult">
+                
                 <div class="row"style="margin-left: 25%;">
                     <c:forEach items="${recipes}" var="recipe">
                         <div class="col-md-6 boxRecipe">   

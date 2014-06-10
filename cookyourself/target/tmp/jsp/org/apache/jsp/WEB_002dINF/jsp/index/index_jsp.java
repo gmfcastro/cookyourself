@@ -219,11 +219,11 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
         return;
       out.write("\">\n");
       out.write("                    <div class=\"input-group\" style=\"width:600px;text-align:center;margin:0 auto;\" id=\"formIngredients\">\n");
-      out.write("                    <input class=\"form-control input-lg\" id=\"inputIgredients\" placeholder=\"Procure por ingredientes\" type=\"text\">\n");
+      out.write("                    <input class=\"form-control input-lg\" id=\"inputIgredients\" name=\"ingredients[]\" placeholder=\"Procure por ingredientes separados por '+' \" type=\"text\">\n");
       out.write("                      <span class=\"input-group-btn\"><button class=\"btn btn-lg btn-danger\" id=\"addIng\" type=\"button\">+</button></span>\n");
       out.write("                    </div>\n");
       out.write("                    <br><br>\n");
-      out.write("                    <div class=\"row\">\n");
+      out.write("                    <div class=\"row\" style='margin-bottom: 40px;'>\n");
       out.write("                        ");
       if (_jspx_meth_c_if_2(_jspx_page_context))
         return;
@@ -232,7 +232,8 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_meth_c_if_3(_jspx_page_context))
         return;
       out.write("\n");
-      out.write("                    </div> \n");
+      out.write("                    </div>\n");
+      out.write("                    <!--<h3 style=\"color: #262626;font-family: 'Lucida Console', Monaco, monospace;\">Adicione os ingredientes separados por \"+\"</h3>-->\n");
       out.write("                </div>\n");
       out.write("\n");
       out.write("              </div> <!-- /row -->\n");

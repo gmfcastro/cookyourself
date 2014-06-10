@@ -159,11 +159,11 @@
 
                   <form class="col-lg-12 form-inline" role="form" method="post" action="<c:url value="/search"/>">
                     <div class="input-group" style="width:600px;text-align:center;margin:0 auto;" id="formIngredients">
-                    <input class="form-control input-lg" id="inputIgredients" name="ingredients[]" placeholder="Procure por ingredientes" type="text">
+                    <input class="form-control input-lg" id="inputIgredients" name="ingredients[]" placeholder="Procure por ingredientes separados por '+' " type="text">
                       <span class="input-group-btn"><button class="btn btn-lg btn-danger" id="addIng" type="button">+</button></span>
                     </div>
                     <br><br>
-                    <div class="row">
+                    <div class="row" style='margin-bottom: 40px;'>
                         <c:if test="${session!=null}">
                         <div class="col-sm-5 col-sm-offset-1">
                             <button class="btn btn-lg btn-danger pull-right" style="margin-right: 50px" type="submit"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>
@@ -179,7 +179,8 @@
                            <button class="btn btn-lg btn-danger" type="submit"><span class="glyphicon glyphicon-search"></span> Pesquisar</button> 
                            </form>
                         </c:if>
-                    </div> 
+                    </div>
+                    <!--<h3 style="color: #262626;font-family: 'Lucida Console', Monaco, monospace;">Adicione os ingredientes separados por "+"</h3>-->
                 </div>
 
               </div> <!-- /row -->
