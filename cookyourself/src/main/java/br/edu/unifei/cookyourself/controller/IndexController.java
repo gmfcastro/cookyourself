@@ -260,7 +260,6 @@ public class IndexController {
     }
     
     private List<Recipe> resturnSearchResults(List<String> ingredients, Double price, String duration, int yield){
-        boolean isThereAllIngredients = false;
         if(ingredients != null){
             
             if(userSession.isLogged()){
@@ -293,9 +292,6 @@ public class IndexController {
           Map<Recipe, Integer> finalMap = sortByValues(counts);
           for (Map.Entry<Recipe, Integer> entry : finalMap.entrySet()) {
               recipes.add(entry.getKey());
-          }
-          if(isThereAllIngredients == false){
-              result.include("message","Não encontramos nenhuma receita que contenha TODOS os ingredientes solicitados, mas as receitas a seguir são as mais parecidas com o que vc procura");
           }
           return recipes;
         }else{
