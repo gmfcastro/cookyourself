@@ -31,18 +31,18 @@
         }
         
         function like(id){
-            var text = $("#"+id).text();
+            var text = $("#like"+id).text();
             if(text === ""){
                 var text = $("#des"+id).text();
             }
             var res = text.split(" ");
             var likes = parseInt(res[0]);
-            var url = "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/like/recipe/"+id;
-            //var url = "http://localhost:8080/cookyourself/like/recipe/"+id;
+            //var url = "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/like/recipe/"+id;
+            var url = "http://localhost:8080/cookyourself/like/recipe/"+id;
             $.post(url,function(data,status){
                 likes ++;
-                $("#"+id).attr("onclick","unlike("+id+");");
-                $("#"+id).text(likes+" | Descurtir");
+                $("#like"+id).attr("onclick","unlike("+id+");");
+                $("#like"+id).text(likes+" | Descurtir");
                 $("#des"+id).attr("onclick","unlike("+id+");");
                 $("#des"+id).text(likes+" | Descurtir");
             });
@@ -51,18 +51,18 @@
         function unlike(id){
             var text = $("#des"+id).text();
             if(text === ""){
-                var text = $("#"+id).text();
+                var text = $("like#"+id).text();
             }
             var res = text.split(" ");
             var likes = parseInt(res[0]);
-            var url = "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/unlike/recipe/"+id;
-            //var url = "http://localhost:8080/cookyourself/unlike/recipe/"+id;
+            //var url = "http://ec2-54-187-212-175.us-west-2.compute.amazonaws.com:8080/cookyourself/unlike/recipe/"+id;
+            var url = "http://localhost:8080/cookyourself/unlike/recipe/"+id;
             $.post(url,function(data,status){
                 likes --;
                 $("#des"+id).attr("onclick","like("+id+");");
                 $("#des"+id).text(likes+" | Curtir");
-                $("#"+id).attr("onclick","like("+id+");");
-                $("#"+id).text(likes+" | Curtir");
+                $("#like"+id).attr("onclick","like("+id+");");
+                $("#like"+id).text(likes+" | Curtir");
             });
         }
         
@@ -274,7 +274,7 @@
                           
                                      </c:forEach> 
                                      <c:if test="${curtido == false}">
-                                         <button class="btn btn-danger pull-right" id="${recipe.id}"onclick="like(${recipe.id});">${recipe.likes} | Curtir</button>
+                                         <button class="btn btn-danger pull-right" id="like${recipe.id}"onclick="like(${recipe.id});">${recipe.likes} | Curtir</button>
                                      </c:if>
                                  </c:if>
                                </div>
